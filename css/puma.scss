@@ -1,0 +1,28 @@
+.cbppCensusMap {
+  position:relative;
+  path {
+    cursor:pointer;
+  }
+  .popupAnchor.lower .popupWrap {
+    bottom:10px;
+
+  }
+  .popupAnchor.upper .popupWrap {
+    top:10px;
+  }
+  .popupAnchor {
+    position:absolute;
+    height:0px;
+    width:0px;
+
+    .popupWrap {
+      position:absolute;
+      .popup {
+        position:relative;
+        padding:10px;
+        background-color:#fff;
+        opacity:0.9;
+      }
+    }
+  }
+}
