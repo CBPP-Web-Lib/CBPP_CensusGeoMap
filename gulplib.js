@@ -79,6 +79,12 @@ gulp.task('download_shape', ["geofolder"], function(cb) {
 gulp.task("unzip_shape", ["download_shape"], function(cb) {
   fs.readdir(PROJECT_DIR + "/geo_zip", function(err, files) {
     var count = 0;
+    var fileFinish = function() {
+      count--;
+      if (count===0) {
+        cb();
+      }
+    };
     files.forEach(function(f) {
       count++;
       var nameA = f.split(".");
@@ -89,12 +95,9 @@ gulp.task("unzip_shape", ["download_shape"], function(cb) {
             {
               path:dest
             }
-          ).on("finish", function() {
-            count--;
-            if (count===0) {
-              cb();
-            }
-          }));
+          ).on("finish", fileFinish));
+        } else {
+          setTimeout(fileFinish,0);
         }
       }
     });
@@ -131,11 +134,9 @@ gulp.task("geojson", ["unzip_shape", "geojson_dir"], function(cb) {
     });
   }
   fs.readdir(PROJECT_DIR + "/geo", function(err, files) {
-
     var fileIndex = 0;
     function handleFile() {
       var filename = files[fileIndex];
-      console.log(filename);
       var puma = ogr2ogr(PROJECT_DIR + '/geo/' + filename + '/' + filename + '.shp')
         .format('GeoJSON')
         .timeout(600000)
@@ -183,7 +184,6 @@ gulp.task("topolowres", ["geojson","topoDir"], function(cb) {
   topopuma = topojson.quantize(topopuma, 4000);
   topopuma = topojson.presimplify(topopuma);
   topopuma = topojson.simplify(topopuma,0.01);
-  console.log(topopuma);
   fs.writeFile(PROJECT_DIR + "/topoLowRes/topo_" + filename + ".json", JSON.stringify(topopuma, null, ' '), function() {cb();});
 });
 
