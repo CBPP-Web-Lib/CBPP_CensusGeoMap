@@ -306,7 +306,6 @@ gulp.task("topo", ["topolowres","topomediumres","topohighres"]);
 
 gulp.task("topomediumres", ["geojson","topoDir"], function() {
   topoHigherRes(mapConfig.medium.gridSize, "Medium", 20000, 0.001);
-  gulp.watch([]);
 });
 
 gulp.task("topohighres", ["geojson", "topoDir"], function() {
