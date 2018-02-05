@@ -2,7 +2,7 @@ module.exports = function($, d3, cache, topojson, lowres, mapConfig, globals) {
   var switchDetail = require("./switchDetail.js")(d3, $, cache, topojson, lowres, mapConfig, globals);
   var mouseDown = false;
   var mouseBase = {};
-  var baseViewBox;
+  var baseViewBox = [];
   function getMovementAndViewBoxFromEvent(e, scaling) {
     var movement = {
       x: e.pageX - mouseBase.x,
