@@ -4,7 +4,7 @@ module.exports = function($, d3, mapConfig, urlbase, shapes, fileIndex) {
 var topojson = require("topojson");
 var projection = d3.geoPath().projection(d3.geoAlbersUsa());
 require("./polyfills.js");
-require("./css/puma.css");
+require("./css/puma.scss");
 var hexRgb = require("hex-rgb");
 var rgbHex = require("rgb2hex");
 var cache = {};
